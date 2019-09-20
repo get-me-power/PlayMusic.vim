@@ -1,6 +1,12 @@
 if exists('g:loaded_PlayMusic')
   finish
 endif
+
+if has('sound') == 0
+  echomsg '+sound option must be enabled'
+  finish
+endif
+
 let g:loaded_PlayMusic = 1
 
 let s:save_cpo = &cpo
