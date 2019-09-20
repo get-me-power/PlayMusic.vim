@@ -5,14 +5,10 @@ set cpo&vim
 
 let s:dir = expand($HOME . '/Music/')
 let s:music_list = map(glob(s:dir . '/*.wav', 1, 1), 'fnamemodify(v:val, ":t:r")')
-echomsg s:music_list
+" echomsg s:music_list
 
 function PlayMusic#Select()
   call s:show_popup(s:music_list)
-  " call sound_playfile($HOME . '/Music/GetWild.wav')
-endfunction
-
-function PlayMusic#Play()
 endfunction
 
 function! s:popup_menu_update(wid, ctx) abort
@@ -30,17 +26,14 @@ function! s:popup_filter(ctx, wid, c) abort
     call s:popup_menu_update(s:wid, a:ctx)
   elseif a:c ==# "\n" || a:c ==# "\r" || a:c ==# ' '
     call popup_close(a:wid)
-    " ここで，sound再生を呼び出す
+    call sound_clear()
     call sound_playfile($HOME . '/Music/' . a:ctx.menu[a:ctx.select] . '.wav', 'Callback')
+    echomsg 'NowPlaying... ' . a:ctx.menu[a:ctx.select]
   elseif a:c ==# "\x1b"
     call popup_close(a:wid)
     return 0
   endif
   return 1
-endfunction
-
-function! Callback(id, status)
-  echomsg "sound " . a:id . " finished with " . a:status
 endfunction
 
 function! s:show_popup(menu) abort
@@ -50,6 +43,15 @@ function! s:show_popup(menu) abort
         \ 'filter': function('s:popup_filter', [l:ctx]),
         \})
   call s:popup_menu_update(s:wid, l:ctx)
+endfunction
+
+function! Callback(id, status)
+  let l:play_status = {0: 'finish', 1: 'stop', 2: 'error'}
+  echomsg "Music is " . l:play_status[a:status]
+endfunction
+
+function! ViewMusic(music_name)
+  echomsg a:music_name
 endfunction
 
 let &cpo = s:save_cpo
