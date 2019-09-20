@@ -31,12 +31,16 @@ function! s:popup_filter(ctx, wid, c) abort
   elseif a:c ==# "\n" || a:c ==# "\r" || a:c ==# ' '
     call popup_close(a:wid)
     " ここで，sound再生を呼び出す
-    echo a:ctx.menu[a:ctx.select]
+    call sound_playfile($HOME . '/Music/' . a:ctx.menu[a:ctx.select] . '.wav', 'Callback')
   elseif a:c ==# "\x1b"
     call popup_close(a:wid)
     return 0
   endif
   return 1
+endfunction
+
+function! Callback(id, status)
+  echomsg "sound " . a:id . " finished with " . a:status
 endfunction
 
 function! s:show_popup(menu) abort
