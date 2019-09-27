@@ -16,7 +16,13 @@ You can enjoy music with Vim
 
 **Ubuntu19.04**
 
-1. Prepare a wav file on `$HOME/Music`
+1. Prepare a `wav file` on `$HOME/Music`
+
+2. Run `:PlayMusic`
+
+**Windows**
+
+1. Prepare a `wav file` or `mp3 file` on `$HOME/Music`
 
 2. Run `:PlayMusic`
 
