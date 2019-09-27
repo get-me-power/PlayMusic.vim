@@ -4,7 +4,11 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 let s:dir = expand($HOME . '/Music/')
-let s:music_list = map(glob(s:dir . '/*.wav', 1, 1), 'fnamemodify(v:val, ":t:r")')
+if has('windows')
+  let s:music_list = map(glob(s:dir . '/*.mp3', 1, 1), 'fnamemodify(v:val, ":t:r")')
+else
+  let s:music_list = map(glob(s:dir . '/*.wav', 1, 1), 'fnamemodify(v:val, ":t:r")')
+endif
 " echomsg s:music_list
 
 function PlayMusic#Select()
