@@ -31,7 +31,11 @@ function! s:popup_filter(ctx, wid, c) abort
   elseif a:c ==# "\n" || a:c ==# "\r" || a:c ==# ' '
     call popup_close(a:wid)
     call sound_clear()
-    call sound_playfile($HOME . '/Music/' . a:ctx.menu[a:ctx.select] . '.wav', 'Callback')
+    if has('windows')
+      call sound_playfile($HOME . '/Music/' . a:ctx.menu[a:ctx.select] . '.mp3', 'Callback')
+    else
+      call sound_playfile($HOME . '/Music/' . a:ctx.menu[a:ctx.select] . '.wav', 'Callback')
+    endif
     echomsg 'NowPlaying... ' . a:ctx.menu[a:ctx.select]
   elseif a:c ==# "\x1b"
     call popup_close(a:wid)
