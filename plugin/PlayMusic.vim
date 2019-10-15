@@ -1,8 +1,11 @@
+scriptencoding utf-8
+
 if exists('g:loaded_PlayMusic')
   finish
 endif
 
-if has('sound') == 0
+if !has('sound')
+  echomsg 'PlayMusic.vim'
   echomsg '+sound option must be enabled'
   finish
 endif
