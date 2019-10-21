@@ -17,7 +17,7 @@ endfunction
 
 function! s:popup_menu_update(wid, ctx) abort
   let l:buf = winbufnr(a:wid)
-  let l:menu = map(copy(a:ctx.menu), '(v:key == a:ctx.select ? "→" : "  ") .. v:val')
+  let l:menu = map(copy(a:ctx.menu), '(v:key == a:ctx.select ? "->" : "  ") .. v:val')
   call setbufline(l:buf, 1, l:menu)
 endfunction
 
