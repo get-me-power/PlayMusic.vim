@@ -4,7 +4,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 let s:dir = expand($HOME . '/Music/')
-if has('windows')
+if has('win32')
   let s:music_list = map(glob(s:dir . '/*.mp3', 1, 1), 'fnamemodify(v:val, ":t:r")')
 else
   let s:music_list = map(glob(s:dir . '/*.wav', 1, 1), 'fnamemodify(v:val, ":t:r")')
@@ -31,7 +31,7 @@ function! s:popup_filter(ctx, wid, c) abort
   elseif a:c ==# "\n" || a:c ==# "\r" || a:c ==# ' '
     call popup_close(a:wid)
     call sound_clear()
-    if has('windows')
+    if has('win32')
       call sound_playfile($HOME . '/Music/' . a:ctx.menu[a:ctx.select] . '.mp3', 'Callback')
     else
       call sound_playfile($HOME . '/Music/' . a:ctx.menu[a:ctx.select] . '.wav', 'Callback')
